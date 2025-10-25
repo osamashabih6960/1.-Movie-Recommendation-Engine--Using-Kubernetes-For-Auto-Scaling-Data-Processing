@@ -1,16 +1,22 @@
+Flask==1.1.2       # Agar 1.1.2 par rehna hai, theek hai
+gunicorn==20.0.4   # Agar 20.0.4 par rehna hai, theek hai
 click==7.1.2
-Flask==1.1.2
-gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.2
-joblib==0.14.1
 MarkupSafe==1.1.1
-numpy==1.21.0
-pandas==1.0.3
-python-dateutil==2.8.1
-pytz==2020.1
-scikit-learn==0.22.2.post1
-scipy==1.4.1
-six==1.14.0
-sklearn==0.0
 Werkzeug==1.0.1
+# --- Updated/Loosened Versions Below ---
+
+# Pandas aur uski dependencies ki versions hata dein taki latest compatible version install ho
+# jo pre-built wheels use karegi (compilation se bachne ke liye)
+numpy
+pandas
+scipy
+joblib
+scikit-learn
+six
+python-dateutil
+pytz
+
+# Note: 'sklearn==0.0' ek redundant (faltu) entry hai, use hatana behtar hai.
+# Agar aapko sirf specific functionality chahiye, toh 'scikit-learn' already listed hai.

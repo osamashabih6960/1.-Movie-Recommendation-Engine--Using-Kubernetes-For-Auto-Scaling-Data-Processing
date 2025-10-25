@@ -1,24 +1,20 @@
-# Use a lightweight base image
+# Base Image: Official lightweight Python image ka upyog karen
 FROM python:3.9-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set work directory
+# Working Directory: Container ke andar /app folder mein chale jayenge
 WORKDIR /app
 
-# Copy dependencies first
-COPY requirements.txt /app/
-#RUN pip install --no-cache-dir -r requirements.txt
+# Dependencies: requirements.txt file ko copy karen aur saari libraries install karen
+# "--no-cache-dir" se installation tez ho jaati hai
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
-COPY app.py /app/
-COPY templates /app/templates
-# COPY static /app/model  # ← Commented out if not needed
+# Application Code: Baaki saara code (app.py, model files, datasets, etc.) copy karen
+COPY . /app
 
-# Expose port
+# Port: Container ka port 5000 expose karen (jaisa ki aapke 'docker run' command mein tha)
 EXPOSE 5000
 
-# Run the application
-CMD ["python", "app.py"]
+# Startup Command: Application shuru karne ka command (assuming app.py is the main file)
+# Agar aap Gunicorn ya koi aur WSGI server use kar rahe hain, toh command badal jayega
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]

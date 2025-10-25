@@ -1,22 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: kubernetes-test-app
 spec:
+  replicas : 2
   selector:
     matchLabels:
-      app: myapp
+      app: kubernetes-test-app
   template:
     metadata:
       labels:
-        app: myapp
+        app: kubernetes-test-app
     spec:
       containers:
-      - name: myapp
-        image: <Image>
+      - name: kubernetes-test-app
+        image: kubernetes-test-app:latest
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+          memory: "128Mi"
+          cpu: "500m"
         ports:
-        - containerPort: <Port>
+        - containerPort: 5000
+
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-test-app
+spec:
+  selector:
+    app: kubernetes-test-app
+  ports:
+  - port: 5000
+    targetPort: 5000
+
